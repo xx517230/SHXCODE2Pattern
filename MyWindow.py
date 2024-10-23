@@ -43,8 +43,8 @@ class MyWindow(QWidget, Ui_MyWindow):
             fileSize = 128 * 1024
             # fileSize = 32
         else:
-            # fileSize = 52 * 1024
-            fileSize = 32
+            fileSize = 48 * 1024
+            # fileSize = 64
         if self.rbtnDebug.isChecked():
             debugFlag = True
         else:

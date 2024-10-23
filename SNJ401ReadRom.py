@@ -12,7 +12,7 @@ SPM_PATTERN(readRom)
    //PVPP
    //APBB
    //3P32
-ST: *00XX*TS7;//TS7 10uS
+ST: *00XX*TS1;
     *00XX*;//     0     To enter I2C mode: VPP= 0101 0011 1010 11 01
     *10XX*;
     *01XX*;//     1
@@ -111,7 +111,7 @@ ST: *00XX*TS7;//TS7 10uS
     *0111*;
     *0111*;
     *0101*;
-    *0100*RPT 4;
+    *0100*TS2,RPT 4;
 """
 patternDataACK = """    *0100*;
     *0110*;//AKI6
@@ -246,12 +246,12 @@ def data2Pattern(self, dataList, patternFile, debugFlag):
             bitList = data2bitList(data)
             writeData2File(data, bitList, byteCnt, fp, debugFlag)
             byteCnt += 1
-            # if byteCnt % (int(fileSize / 100)) == 0 or byteCnt == fileSize:
-            #     self.labelStatus.setText(
-            #         f"生成readRom.pat: 共 {int(fileSize/1024)} KB, 已处理 {int(byteCnt/1024)} KB, {int((byteCnt/fileSize)*100)}%"
-            #     )
-            #     self.labelStatus.repaint()
-            #     self.pBar.setValue(int((byteCnt / fileSize) * 100))
+            if byteCnt % (int(fileSize / 100)) == 0 or byteCnt == fileSize:
+                self.labelStatus.setText(
+                    f"生成readRom.pat: 共 {int(fileSize/1024)} KB, 已处理 {int(byteCnt/1024)} KB, {int((byteCnt/fileSize)*100)}%"
+                )
+                self.labelStatus.repaint()
+                self.pBar.setValue(int((byteCnt / fileSize) * 100))
         fp.write(patternForEnd)
     return byteCnt
 
